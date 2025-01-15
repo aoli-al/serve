@@ -1,0 +1,25 @@
+{
+  "headers": [
+    {
+      "source": "**/*.parquet",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "binary/octet-stream"
+        },
+        {
+          "key": "Last-Modified",
+          "value": "Wed, 10 Jan 2025 12:00:00 GMT"
+        },
+        {
+          "key": "access-control-allow-methods",
+          "value": "GET,HEAD"
+        },
+        {
+          "key": "Vary",
+          "value": "Origin, Access-Control-Request-Headers, Access-Control-Request-Method"
+        }
+      ]
+    }
+  ]
+}

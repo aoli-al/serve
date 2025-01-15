@@ -62,14 +62,19 @@ export const startServer = async (
           chalk.cyan(requestUrl),
         );
 
-      if (args['--cors']) {
-        response.setHeader('Access-Control-Allow-Origin', '*');
-        response.setHeader('Access-Control-Allow-Headers', '*');
-        response.setHeader('Access-Control-Allow-Credentials', 'true');
-        response.setHeader('Access-Control-Allow-Private-Network', 'true');
-      }
+      response.setHeader('Access-Control-Allow-Origin', '*');
+      response.setHeader('Access-Control-Allow-Headers', '*');
+      response.setHeader('Access-Control-Allow-Credentials', 'true');
+      response.setHeader('Access-Control-Allow-Private-Network', 'true');
       if (!args['--no-compression'])
         await compress(request as ExpressRequest, response as ExpressResponse);
+
+      if (request.headers.range?.includes('138725')) {
+        logger.warn('Return 403 for specific range');
+        response.statusCode = 403;
+        response.end('Forbidden');
+        return;
+      }
 
       // Let the `serve-handler` module do the rest.
       await handler(request, response, config);
